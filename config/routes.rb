@@ -4,6 +4,7 @@ get '/homework' => 'homework/index'
 
 get '/dice/roll'
 
+get '/books/list'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
