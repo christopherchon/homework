@@ -1,15 +1,63 @@
-<h1> Books </h1>
+<head>
+<style>
+table
+  {
+    border-collapse:collapse;
+    font-family:"Helvetica";
+    color:#686868
+  }
+  table, td, th
+  {
+    border:5px solid #C0C0C0;
+    padding:5px;
+  }
+  th
+  {
+    border-bottom: 5px solid #C0C0C0;
+    text-align:left;
+  }
+</style>
+</head>
 
-<table border = "10" style="width:300px">
+<h1>Books</h1>
+
+<hr>
 
 <% all_books = Book.read %>
-<% all_books.each do |books| %>
+
+<p>
+
+<table>
 
 <tr>
-<td> <%= books["title"] %> </td>
-<td> <%= books["author"] %> </td>
+
+<th width=300><strong>Available Titles</strong></th>
+
+<th width=300><strong>Average Star Rating</strong></th>
+
 </tr>
 
-<% end %>
+<% Book.read.each do |book| %>
 
+<% book_review = Review.where("book_id" => book.id) %>
+
+<tr>
+
+<td><%= link_to book["title"], "/books/#{book["id"]}" %></td>
+
+<td>
+
+<% if book_review.present? %>
+
+<%= book_review.average("stars") %>
+
+<% else %>
+
+No reviews
+
+<% end %>
+</td>
+</tr>
+<% end %>
 </table>
+</p>
